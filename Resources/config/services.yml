@@ -43,14 +43,14 @@ parameters:
   #
   # You need not specify any sizes if you don't want FileUploader to scale images for you
   file_uploader.sizes:
-    thumbnail:
-      folder: thumbnails
-      max_width: 150
-      max_height: 150
-    large:
-      folder: large
-      max_width: 1140
-      max_height: 1140
+     thumbnail:
+       folder: thumbnails
+       max_width: 150
+       max_height: 150
+  #  large:
+  #    folder: large
+  #    max_width: 1140
+  #    max_height: 1140
 
 services:
     punk_ave.file_uploader:

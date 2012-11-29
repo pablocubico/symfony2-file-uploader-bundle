@@ -116,6 +116,7 @@ class UploadHandler
     protected function create_scaled_image($file_name, $options) {
         $file_path = $this->options['upload_dir'].$file_name;
         $new_file_path = $options['upload_dir'].$file_name;
+
         list($img_width, $img_height) = @getimagesize($file_path);
         if (!$img_width || !$img_height) {
             return false;
@@ -130,8 +131,8 @@ class UploadHandler
             }
             return true;
         }
-        $new_width = $img_width * $scale;
-        $new_height = $img_height * $scale;
+        $new_width = $options['max_width'];
+        $new_height = $options['max_height'];
         $new_img = @imagecreatetruecolor($new_width, $new_height);
         switch (strtolower(substr(strrchr($file_name, '.'), 1))) {
             case 'jpg':
@@ -159,6 +160,13 @@ class UploadHandler
             default:
                 $src_img = null;
         }
+
+        if ($img_width < $img_height) {
+            $img_height = $img_width;
+        } else {
+            $img_width = $img_height;
+        }
+
         $success = $src_img && @imagecopyresampled(
             $new_img,
             $src_img,
